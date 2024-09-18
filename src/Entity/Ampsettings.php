@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\AmpsettingsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AmpsettingsRepository::class)]
+#[ApiResource]
 class Ampsettings
 {
     #[ORM\Id]
@@ -45,10 +47,10 @@ class Ampsettings
     #[ORM\ManyToOne(inversedBy: 'ampsettings')]
     private ?User $User = null;
 
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'ampsettings')]
     /**
      * @var Collection<int, User>
      */
-    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'ampsettings')]
     private Collection $Favorite;
 
     public function __construct()
